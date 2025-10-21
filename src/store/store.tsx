@@ -1,0 +1,15 @@
+import { type ColorMode } from "@xyflow/react";
+import { create } from "zustand";
+
+interface IState {
+  colorMode: ColorMode;
+  setColorMode: (updatedMode: ColorMode) => void;
+}
+
+export const useAppStore = create<IState>()((set) => ({
+  colorMode: "system",
+  setColorMode: (updatedMode) =>
+    set(() => ({
+      colorMode: updatedMode,
+    })),
+}));
