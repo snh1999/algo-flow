@@ -1,6 +1,7 @@
 import { type ColorMode } from "@xyflow/react";
 import { useAppStore } from "../store/store";
 import type { ChangeEventHandler } from "react";
+import { ETheme } from "../common/app.constants";
 
 export default function ModeSwitcher() {
   const { setColorMode } = useAppStore();
@@ -11,13 +12,13 @@ export default function ModeSwitcher() {
 
   return (
     <select
-      className="xy-theme__select rounded-md p-1"
+      className="xy-theme__select rounded-md p-1 text-center"
       onChange={onChange}
       data-testid="colormode-select"
     >
-      <option value="dark">dark</option>
-      <option value="light">light</option>
-      <option value="system">system</option>
+      <option value={ETheme.DARK_MODE}>Dark</option>
+      <option value={ETheme.LIGHT_MODE}>Light</option>
+      <option value={ETheme.SYSTEM}>System</option>
     </select>
   );
 }

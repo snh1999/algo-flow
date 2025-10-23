@@ -1,9 +1,12 @@
-import { type ColorMode } from "@xyflow/react";
+import { type ColorMode, type BackgroundVariant } from "@xyflow/react";
 import { create } from "zustand";
+import { ETheme } from "../common/app.constants";
 
 interface IState {
   colorMode: ColorMode;
-  setColorMode: (updatedMode: ColorMode) => void;
+  setColorMode: (colorMode: ColorMode) => void;
+  bgVariant?: BackgroundVariant;
+  setBGVariant: (bgVariant?: BackgroundVariant) => void;
   controlVisiblity: boolean;
   toggleControlVisiblity: () => void;
   minimapVisiblity: boolean;
@@ -11,11 +14,11 @@ interface IState {
 }
 
 export const useAppStore = create<IState>()((set) => ({
-  colorMode: "system",
-  setColorMode: (updatedMode) =>
-    set(() => ({
-      colorMode: updatedMode,
-    })),
+  colorMode: ETheme.SYSTEM,
+  setColorMode: (colorMode) => set(() => ({ colorMode })),
+
+  bgVariant: undefined,
+  setBGVariant: (bgVariant) => set(() => ({ bgVariant })),
 
   controlVisiblity: true,
   toggleControlVisiblity: () =>

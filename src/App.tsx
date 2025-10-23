@@ -23,7 +23,8 @@ const initialNodes: Node[] = [];
 const initialEdges: Edge[] = [];
 
 export default function App() {
-  const { colorMode, controlVisiblity, minimapVisiblity } = useAppStore();
+  const { colorMode, controlVisiblity, minimapVisiblity, bgVariant } =
+    useAppStore();
   const [nodes, setNodes] = useState<Node[]>(initialNodes);
   const [edges, setEdges] = useState<Edge[]>(initialEdges);
 
@@ -80,7 +81,7 @@ export default function App() {
         fitView
       >
         {minimapVisiblity && <MiniMap />}
-        <Background />
+        {bgVariant && <Background variant={bgVariant} />}
         {controlVisiblity && <Controls />}
         {contextMenu && <AppContextMenu position={{ ...contextMenu }} />}
       </ReactFlow>
