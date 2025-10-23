@@ -14,11 +14,31 @@ body {
   min-height: 100vh;
 }
 
-.dark .xy-theme__select {
-  background-color: theme("colors.neutral.700");
-  color: theme("colors.neutral.100");
+.dark .xy-theme__select,
+.dark .context-menu {
+  background-color: theme("colors.neutral.800");
+  color: theme("colors.neutral.300");
 }
 
-.xy-theme__select {
-  background-color: theme("colors.neutral.100");
+.xy-theme__select,
+.context-menu {
+  background-color: theme("colors.neutral.50");
+  color: theme("colors.neutral.800");
+}
+
+.checkbox:checked + .label:before {
+  background: green;
+}
+
+.app_menu_item:first-child {
+  border-top: 1px solid theme("colors.neutral.400");
+}
+
+.app_menu_item {
+  border-bottom: 1px solid theme("colors.neutral.400");
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  border-radius: 4px;
 }
