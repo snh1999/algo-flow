@@ -1,4 +1,4 @@
-import { Panel, type ColorMode } from "@xyflow/react";
+import { type ColorMode } from "@xyflow/react";
 import { useAppStore } from "../store/store";
 import type { ChangeEventHandler } from "react";
 
@@ -10,16 +10,14 @@ export default function ModeSwitcher() {
   };
 
   return (
-    <Panel position="top-right">
-      <select
-        className="xy-theme__select rounded-md p-1"
-        onChange={onChange}
-        data-testid="colormode-select"
-      >
-        <option value="dark">dark</option>
-        <option value="light">light</option>
-        <option value="system">system</option>
-      </select>
-    </Panel>
+    <select
+      className="xy-theme__select rounded-md p-1"
+      onChange={onChange}
+      data-testid="colormode-select"
+    >
+      <option value="dark">dark</option>
+      <option value="light">light</option>
+      <option value="system">system</option>
+    </select>
   );
 }
