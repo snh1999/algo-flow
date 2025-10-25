@@ -1,8 +1,11 @@
 import { type ColorMode, type BackgroundVariant } from "@xyflow/react";
 import { create } from "zustand";
 import { ETheme } from "../common/app.constants";
+import { ESelectionMenu, type TSelectionMenu } from "../common/types";
 
 interface IState {
+  menuMode: TSelectionMenu;
+  setMenuMode: (menuMode: TSelectionMenu) => void;
   colorMode: ColorMode;
   setColorMode: (colorMode: ColorMode) => void;
   bgVariant?: BackgroundVariant;
@@ -13,7 +16,9 @@ interface IState {
   toggleMinimapVisiblity: () => void;
 }
 
-export const useAppStore = create<IState>()((set) => ({
+export const useSettingsStore = create<IState>()((set) => ({
+  menuMode: ESelectionMenu.RANDOM,
+  setMenuMode: (menuMode) => set(() => ({ menuMode })),
   colorMode: ETheme.SYSTEM,
   setColorMode: (colorMode) => set(() => ({ colorMode })),
 

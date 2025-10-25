@@ -1,6 +1,6 @@
 import { BackgroundVariant } from "@xyflow/react";
 import type { TPosition } from "../../common/types";
-import { useAppStore } from "../../store/store";
+import { useSettingsStore } from "../../store/settingStore";
 import ModeSwitcher from "../ModeSwitcher";
 import type { ChangeEventHandler } from "react";
 
@@ -14,7 +14,7 @@ export default function AppContextMenu({ position }: TProps) {
     minimapVisiblity,
     toggleMinimapVisiblity,
     setBGVariant,
-  } = useAppStore();
+  } = useSettingsStore();
 
   const onBGChange: ChangeEventHandler<HTMLSelectElement> = (event) => {
     setBGVariant(event.target.value as BackgroundVariant | undefined);

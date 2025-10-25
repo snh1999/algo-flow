@@ -1,10 +1,10 @@
 import { type ColorMode } from "@xyflow/react";
-import { useAppStore } from "../store/store";
+import { useSettingsStore } from "../store/settingStore";
 import type { ChangeEventHandler } from "react";
 import { ETheme } from "../common/app.constants";
 
 export default function ModeSwitcher() {
-  const { setColorMode } = useAppStore();
+  const { setColorMode } = useSettingsStore();
 
   const onChange: ChangeEventHandler<HTMLSelectElement> = (evt) => {
     setColorMode(evt.target.value as ColorMode);

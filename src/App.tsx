@@ -15,16 +15,17 @@ import {
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import "tailwindcss";
-import { useAppStore } from "./store/store";
+import { useSettingsStore } from "./store/settingStore";
 import AppContextMenu from "./components/contextMenu/AppContextMenu";
 import type { TPosition } from "./common/types";
+import { Topbar } from "./components/topbar/Topbar";
 
 const initialNodes: Node[] = [];
 const initialEdges: Edge[] = [];
 
 export default function App() {
   const { colorMode, controlVisiblity, minimapVisiblity, bgVariant } =
-    useAppStore();
+    useSettingsStore();
   const [nodes, setNodes] = useState<Node[]>(initialNodes);
   const [edges, setEdges] = useState<Edge[]>(initialEdges);
 
