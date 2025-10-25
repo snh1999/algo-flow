@@ -1,44 +1,54 @@
 @import "tailwindcss";
 
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-.dark .xy-theme__select,
-.dark .context-menu {
-  background-color: theme("colors.neutral.800");
-  color: theme("colors.neutral.300");
+    margin: 0;
+    display: flex;
+    place-items: center;
+    min-width: 320px;
+    min-height: 100vh;
 }
 
 .xy-theme__select,
-.context-menu {
-  background-color: theme("colors.neutral.50");
-  color: theme("colors.neutral.800");
+.context-menu,
+.topbar {
+    background-color: theme("colors.neutral.100");
+    color: theme("colors.neutral.800");
 }
 
-.checkbox:checked + .label:before {
-  background: green;
+.dark .xy-theme__select,
+.dark .context-menu,
+.dark .topbar {
+    background-color: theme("colors.neutral.800");
+    color: theme("colors.neutral.300");
+}
+
+.active_topbar {
+    color: palevioletred;
+    background-color: white;
+    border-radius: 50%;
+    padding: 1px;
+}
+
+.dark .active_topbar {
+    color: palevioletred;
+    background-color: theme("colors.neutral.900");
 }
 
 .app_menu_item:first-child {
-  border-top: 1px solid theme("colors.neutral.400");
+    border-top: 1px solid theme("colors.neutral.400");
 }
 
 .app_menu_item {
-  border-bottom: 1px solid theme("colors.neutral.400");
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  border-radius: 4px;
+    border-bottom: 1px solid theme("colors.neutral.400");
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 4px;
 }

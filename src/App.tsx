@@ -81,6 +81,7 @@ export default function App() {
         onPaneClick={onPaneClick}
         fitView
       >
+        <Topbar />
         {minimapVisiblity && <MiniMap />}
         {bgVariant && <Background variant={bgVariant} />}
         {controlVisiblity && <Controls />}
