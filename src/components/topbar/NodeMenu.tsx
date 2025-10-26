@@ -4,10 +4,26 @@ import {
   TextCursorInput,
   Trash2,
 } from "lucide-react";
+import { useSettingsStore } from "../../store/settingStore";
+import { ESelectionMenu } from "../../common/types";
 
 export default function NodeMenu() {
+  const { menuMode } = useSettingsStore();
+
   return (
-    <div className="flex gap-3 p-2 rounded-md backdrop-opacity-50 shadow-xs">
+    <div
+      className="submenu_topbar gap-3 p-2.5"
+      style={{
+        cursor:
+          menuMode === ESelectionMenu.DRAG
+            ? "grab"
+            : menuMode === ESelectionMenu.RANDOM
+              ? "default"
+              : menuMode === ESelectionMenu.RECTANGLE
+                ? "crosshair"
+                : "none",
+      }}
+    >
       <div title="Input Node">
         <TextCursorInput />
       </div>

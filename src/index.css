@@ -28,16 +28,19 @@ body {
     color: theme("colors.neutral.300");
 }
 
-.active_topbar {
-    color: palevioletred;
-    background-color: white;
-    border-radius: 50%;
-    padding: 1px;
+.submenu_topbar {
+    display: flex;
+    flex-direction: row;
+    border-radius: 6px;
+    background-color: color-mix(
+        in oklab,
+        var(--color-white) /* #fff = #ffffff */ 5%,
+        transparent
+    );
 }
 
-.dark .active_topbar {
+.active_topbar {
     color: palevioletred;
-    background-color: theme("colors.neutral.900");
 }
 
 .app_menu_item:first-child {
