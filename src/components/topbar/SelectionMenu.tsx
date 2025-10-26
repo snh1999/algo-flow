@@ -1,10 +1,4 @@
-import {
-  Dices,
-  Eraser,
-  Grip,
-  SquareMousePointer,
-  SquareSquare,
-} from "lucide-react";
+import { Dices, Eraser, Grip, SquareMousePointer } from "lucide-react";
 import { motion } from "framer-motion";
 import { useSettingsStore } from "../../store/settingStore";
 import { ESelectionMenu } from "../../common/types";

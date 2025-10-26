@@ -34,7 +34,7 @@ export default function NodeMenu() {
         <BetweenHorizontalStart />
       </div>
       <div title="Delete">
-        <Trash2 className="text-red-700 opacity-70" />
+        <Trash2 />
       </div>
     </div>
   );

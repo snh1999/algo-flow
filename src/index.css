@@ -43,6 +43,11 @@ body {
     color: palevioletred;
 }
 
+.submenu_topbar > div:hover {
+    color: palevioletred;
+    scale: 110%;
+}
+
 .app_menu_item:first-child {
     border-top: 1px solid theme("colors.neutral.400");
 }
