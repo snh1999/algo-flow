@@ -60,3 +60,12 @@ body {
     padding: 10px 20px;
     border-radius: 4px;
 }
+
+.ghostnode {
+    position: fixed;
+    pointer-events: none;
+    cursor: grab;
+    touch-action: none; /* Prevent zoom or scroll when dragging nodes on mobile */
+    text-wrap: nowrap;
+    scale: 2;
+}
