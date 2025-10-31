@@ -8,12 +8,11 @@ import { useSettingsStore } from "../../store/settingStore";
 import { ESelectionMenu } from "../../common/types";
 import { useDnD } from "../../hooks/useDnd/useDnd";
 import { useCallback, useState } from "react";
-import { useReactFlow, type XYPosition } from "@xyflow/react";
+import { type XYPosition } from "@xyflow/react";
 import type { OnDropAction } from "../../hooks/useDnd/DndContext";
 import { DragGhost } from "../overlays/DragGhost";
-
-let id = 0;
-const getId = () => `dndnode_${id++}`;
+import { useNodeStore } from "../../store/nodeStore";
+import { nanoid } from "nanoid";
 
 export default function NodeMenu() {
   const { menuMode } = useSettingsStore();
@@ -21,25 +20,21 @@ export default function NodeMenu() {
   const { onDragStart, isDragging } = useDnD();
   const [type, setType] = useState<string | null>(null);
 
-  const { setNodes } = useReactFlow();
+  const { addNode } = useNodeStore();
 
   const createAddNewNode = useCallback(
     (nodeType: string): OnDropAction => {
       return ({ position }: { position: XYPosition }) => {
-        // Here, we create a new node and add it to the flow.
-        // You can customize the behavior of what happens when a node is dropped on the flow here.
-        const newNode = {
-          id: getId(),
+        addNode({
+          id: nanoid(),
           type: nodeType,
           position,
           data: { label: `${nodeType} node` },
-        };
-
-        setNodes((nds) => nds.concat(newNode));
+        });
         setType(null);
       };
     },
-    [setNodes, setType],
+    [addNode, setType],
   );
 
   return (

@@ -1,16 +1,10 @@
 import { useState, useCallback, useRef } from "react";
 import {
   ReactFlow,
-  addEdge,
-  type Edge,
-  type Node,
-  type OnConnect,
   MiniMap,
   Background,
   Controls,
   ReactFlowProvider,
-  useNodesState,
-  useEdgesState,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import "tailwindcss";
@@ -19,17 +13,24 @@ import AppContextMenu from "./components/contextMenu/AppContextMenu";
 import type { TPosition } from "./common/types";
 import { Topbar } from "./components/topbar/Topbar";
 import { DnDProvider } from "./hooks/useDnd/DndContext";
+import { useNodeStore, type INodeState } from "./store/nodeStore";
+import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 
-const initialNodes: Node[] = [];
-const initialEdges: Edge[] = [];
+const selector = (state: INodeState) => ({
+  nodes: state.nodes,
+  edges: state.edges,
+  onNodesChange: state.onNodesChange,
+  onEdgesChange: state.onEdgesChange,
+  onConnect: state.onConnect,
+});
 
 export default function App() {
+  const { nodes, edges, onConnect, onEdgesChange, onNodesChange } =
+    useNodeStore(useShallow(selector));
+
   const { colorMode, controlVisiblity, minimapVisiblity, bgVariant } =
     useSettingsStore();
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [nodes, _, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
   const [contextMenu, setContextMenu] = useState<TPosition | null>(null);
   const ref = useRef<HTMLDivElement>(null);
@@ -53,11 +54,6 @@ export default function App() {
   );
 
   const onPaneClick = useCallback(() => setContextMenu(null), [setContextMenu]);
-
-  const onConnect: OnConnect = useCallback(
-    (params) => setEdges((edgesSnapshot) => addEdge(params, edgesSnapshot)),
-    [setEdges],
-  );
 
   return (
     <ReactFlowProvider>
