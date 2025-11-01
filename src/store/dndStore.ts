@@ -5,16 +5,19 @@ export type TOnDropAction = (position: XYPosition) => void;
 
 type DnDState = {
   isDragging: boolean;
-  setIsDragging: (value: boolean) => void;
 
   dropAction: TOnDropAction | null;
-  setDropAction: (dropAction: TOnDropAction | null) => void;
 };
 
-export const useDnDStore = create<DnDState>((set) => ({
+export const useDnDStore = create<DnDState>(() => ({
   isDragging: false,
-  setIsDragging: (value) => set({ isDragging: value }),
-
   dropAction: null,
-  setDropAction: (dropAction) => set({ dropAction }),
 }));
+
+export const setIsDragging = (value: boolean) => {
+  useDnDStore.setState({ isDragging: value });
+};
+
+export const setDropAction = (dropAction: TOnDropAction | null) => {
+  useDnDStore.setState({ dropAction });
+};

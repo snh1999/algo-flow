@@ -12,20 +12,15 @@ import { useSettingsStore } from "./store/settingStore";
 import AppContextMenu from "./components/contextMenu/AppContextMenu";
 import type { TPosition } from "./common/types";
 import { Topbar } from "./components/topbar/Topbar";
-import { useNodeStore, type INodeState } from "./store/nodeStore";
-import { useShallow } from "zustand/react/shallow";
-
-const selector = (state: INodeState) => ({
-  nodes: state.nodes,
-  edges: state.edges,
-  onNodesChange: state.onNodesChange,
-  onEdgesChange: state.onEdgesChange,
-  onConnect: state.onConnect,
-});
+import {
+  onConnect,
+  onEdgesChange,
+  onNodesChange,
+  useNodeStore,
+} from "./store/nodeStore";
 
 export default function App() {
-  const { nodes, edges, onConnect, onEdgesChange, onNodesChange } =
-    useNodeStore(useShallow(selector));
+  const { nodes, edges } = useNodeStore();
 
   const { colorMode, controlVisiblity, minimapVisiblity, bgVariant } =
     useSettingsStore();

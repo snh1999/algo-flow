@@ -1,11 +1,10 @@
 import { useReactFlow, type XYPosition } from "@xyflow/react";
 import { useCallback, useEffect } from "react";
-import { useDnDStore } from "../store/dndStore";
+import { useDnDStore, setDropAction, setIsDragging } from "../store/dndStore";
 
 export const useDnD = () => {
   const { screenToFlowPosition } = useReactFlow();
-  const { isDragging, setIsDragging, dropAction, setDropAction } =
-    useDnDStore();
+  const { isDragging, dropAction } = useDnDStore();
 
   // `useDnD` hook return this callback, and can be used when a node is dragged into the flow.
   const onDragStart = useCallback(
@@ -18,7 +17,7 @@ export const useDnD = () => {
       setIsDragging(true);
       setDropAction(onDrop);
     },
-    [setIsDragging, setDropAction],
+    [],
   );
 
   const onDragEnd = useCallback(
@@ -49,7 +48,7 @@ export const useDnD = () => {
 
       setIsDragging(false);
     },
-    [isDragging, setIsDragging, screenToFlowPosition, dropAction],
+    [isDragging, screenToFlowPosition, dropAction],
   );
 
   // Add global touch event listeners

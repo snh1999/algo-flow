@@ -10,7 +10,7 @@ import { useDnD } from "../../hooks/useDnd";
 import { useCallback, useState } from "react";
 import { type XYPosition } from "@xyflow/react";
 import { DragGhost } from "../overlays/DragGhost";
-import { useNodeStore } from "../../store/nodeStore";
+import { addNode } from "../../store/nodeStore";
 import { nanoid } from "nanoid";
 
 export default function NodeMenu() {
@@ -18,8 +18,6 @@ export default function NodeMenu() {
 
   const { onDragStart, isDragging } = useDnD();
   const [type, setType] = useState<string | null>(null);
-
-  const { addNode } = useNodeStore();
 
   const createAddNewNode = useCallback(
     (nodeType: string) => {
@@ -33,7 +31,7 @@ export default function NodeMenu() {
         setType(null);
       };
     },
-    [addNode, setType],
+    [setType],
   );
 
   return (

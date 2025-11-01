@@ -5,32 +5,38 @@ import { ESelectionMenu, type TSelectionMenu } from "../common/types";
 
 interface IState {
   menuMode: TSelectionMenu;
-  setMenuMode: (menuMode: TSelectionMenu) => void;
   colorMode: ColorMode;
-  setColorMode: (colorMode: ColorMode) => void;
   bgVariant?: BackgroundVariant;
-  setBGVariant: (bgVariant?: BackgroundVariant) => void;
   controlVisiblity: boolean;
-  toggleControlVisiblity: () => void;
   minimapVisiblity: boolean;
-  toggleMinimapVisiblity: () => void;
 }
 
-export const useSettingsStore = create<IState>()((set) => ({
+export const useSettingsStore = create<IState>()(() => ({
   menuMode: ESelectionMenu.RANDOM,
-  setMenuMode: (menuMode) => set(() => ({ menuMode })),
   colorMode: ETheme.SYSTEM,
-  setColorMode: (colorMode) => set(() => ({ colorMode })),
-
   bgVariant: undefined,
-  setBGVariant: (bgVariant) => set(() => ({ bgVariant })),
-
   controlVisiblity: true,
-  toggleControlVisiblity: () =>
-    set((state) => ({ controlVisiblity: !state.controlVisiblity })),
   minimapVisiblity: false,
-  toggleMinimapVisiblity: () =>
-    set((state) => ({
-      minimapVisiblity: !state.minimapVisiblity,
-    })),
 }));
+
+export const setMenuMode = (menuMode: TSelectionMenu) => {
+  useSettingsStore.setState({ menuMode });
+};
+
+export const setColorMode = (colorMode: ColorMode) => {
+  useSettingsStore.setState({ colorMode });
+};
+
+export const setBGVariant = (bgVariant?: BackgroundVariant) => {
+  useSettingsStore.setState(() => ({ bgVariant }));
+};
+
+export const toggleControlVisiblity = () =>
+  useSettingsStore.setState((state) => ({
+    controlVisiblity: !state.controlVisiblity,
+  }));
+
+export const toggleMinimapVisiblity = () =>
+  useSettingsStore.setState((state) => ({
+    minimapVisiblity: !state.minimapVisiblity,
+  }));

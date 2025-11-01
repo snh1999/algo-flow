@@ -14,46 +14,48 @@ import { persist } from "zustand/middleware";
 export interface INodeState {
   nodes: Node[];
   edges: Edge[];
-  onNodesChange: OnNodesChange;
-  onEdgesChange: OnEdgesChange;
-  onConnect: OnConnect;
-  setNodes: (nodes: Node[]) => void;
-  addNode: (node: Node) => void;
-  setEdges: (edges: Edge[]) => void;
 }
 
 export const useNodeStore = create(
   persist<INodeState>(
-    (set, get) => ({
+    () => ({
       nodes: [],
       edges: [],
-      onNodesChange(changes) {
-        set({
-          nodes: applyNodeChanges(changes, get().nodes),
-        });
-      },
-      onEdgesChange(changes) {
-        set({
-          edges: applyEdgeChanges(changes, get().edges),
-        });
-      },
-      onConnect: (connection) => {
-        set({
-          edges: addEdge(connection, get().edges),
-        });
-      },
-      setNodes: (nodes) => {
-        set({ nodes });
-      },
-      addNode: (node) => {
-        set({ nodes: [...get().nodes, node] });
-      },
-      setEdges: (edges) => {
-        set({ edges });
-      },
     }),
     {
       name: "algo-flow",
     },
   ),
 );
+
+export const onNodesChange: OnNodesChange = (changes) => {
+  useNodeStore.setState((state) => ({
+    nodes: applyNodeChanges(changes, state.nodes),
+  }));
+};
+
+export const onEdgesChange: OnEdgesChange = (changes) => {
+  useNodeStore.setState((state) => ({
+    edges: applyEdgeChanges(changes, state.edges),
+  }));
+};
+
+export const onConnect: OnConnect = (connection) => {
+  useNodeStore.setState((state) => ({
+    edges: addEdge(connection, state.edges),
+  }));
+};
+
+export const setNodes = (nodes: Node[]) => {
+  useNodeStore.setState({ nodes });
+};
+
+export const addNode = (node: Node) => {
+  useNodeStore.setState((state) => ({
+    nodes: [...state.nodes, node],
+  }));
+};
+
+export const setEdges = (edges: Edge[]) => {
+  useNodeStore.setState({ edges });
+};
