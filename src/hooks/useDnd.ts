@@ -1,19 +1,18 @@
 import { useReactFlow, type XYPosition } from "@xyflow/react";
-import DnDContext, { type OnDropAction } from "./DndContext";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
+import { useDnDStore } from "../store/dndStore";
 
 export const useDnD = () => {
   const { screenToFlowPosition } = useReactFlow();
-
-  const context = useContext(DnDContext);
-  if (!context) {
-    throw new Error("useDnD must be used within a DnDProvider");
-  }
-  const { isDragging, setIsDragging, setDropAction, dropAction } = context;
+  const { isDragging, setIsDragging, dropAction, setDropAction } =
+    useDnDStore();
 
   // `useDnD` hook return this callback, and can be used when a node is dragged into the flow.
   const onDragStart = useCallback(
-    (event: React.PointerEvent<HTMLDivElement>, onDrop: OnDropAction) => {
+    (
+      event: React.PointerEvent<HTMLDivElement>,
+      onDrop: (position: XYPosition) => void,
+    ) => {
       event.preventDefault();
       (event.target as HTMLElement).setPointerCapture(event.pointerId);
       setIsDragging(true);
@@ -45,7 +44,7 @@ export const useDnD = () => {
           x: event.clientX,
           y: event.clientY,
         });
-        dropAction?.({ position: flowPosition });
+        dropAction?.(flowPosition);
       }
 
       setIsDragging(false);
@@ -68,24 +67,4 @@ export const useDnD = () => {
     isDragging,
     onDragStart,
   };
-};
-
-export const useDnDPosition = () => {
-  const [position, setPosition] = useState<XYPosition | undefined>(undefined);
-
-  // By default, the pointer move event sets the position of the dragged element in the context.
-  // This will be used to display the `DragGhost` component.
-  const onDrag = useCallback((event: PointerEvent) => {
-    event.preventDefault();
-    setPosition({ x: event.clientX, y: event.clientY });
-  }, []);
-
-  useEffect(() => {
-    document.addEventListener("pointermove", onDrag);
-    return () => {
-      document.removeEventListener("pointermove", onDrag);
-    };
-  }, [onDrag]);
-
-  return { position };
 };

@@ -12,9 +12,7 @@ import { useSettingsStore } from "./store/settingStore";
 import AppContextMenu from "./components/contextMenu/AppContextMenu";
 import type { TPosition } from "./common/types";
 import { Topbar } from "./components/topbar/Topbar";
-import { DnDProvider } from "./hooks/useDnd/DndContext";
 import { useNodeStore, type INodeState } from "./store/nodeStore";
-import { shallow } from "zustand/shallow";
 import { useShallow } from "zustand/react/shallow";
 
 const selector = (state: INodeState) => ({
@@ -57,28 +55,26 @@ export default function App() {
 
   return (
     <ReactFlowProvider>
-      <DnDProvider>
-        <div style={{ width: "100vw", height: "100vh" }}>
-          <ReactFlow
-            colorMode={colorMode}
-            ref={ref}
-            nodes={nodes}
-            edges={edges}
-            onNodesChange={onNodesChange}
-            onEdgesChange={onEdgesChange}
-            onConnect={onConnect}
-            onPaneContextMenu={onAppContextMenu}
-            onPaneClick={onPaneClick}
-            fitView
-          >
-            <Topbar />
-            {minimapVisiblity && <MiniMap />}
-            {bgVariant && <Background variant={bgVariant} />}
-            {controlVisiblity && <Controls />}
-            {contextMenu && <AppContextMenu position={{ ...contextMenu }} />}
-          </ReactFlow>
-        </div>
-      </DnDProvider>
+      <div style={{ width: "100vw", height: "100vh" }}>
+        <ReactFlow
+          colorMode={colorMode}
+          ref={ref}
+          nodes={nodes}
+          edges={edges}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+          onConnect={onConnect}
+          onPaneContextMenu={onAppContextMenu}
+          onPaneClick={onPaneClick}
+          fitView
+        >
+          <Topbar />
+          {minimapVisiblity && <MiniMap />}
+          {bgVariant && <Background variant={bgVariant} />}
+          {controlVisiblity && <Controls />}
+          {contextMenu && <AppContextMenu position={{ ...contextMenu }} />}
+        </ReactFlow>
+      </div>
     </ReactFlowProvider>
   );
 }

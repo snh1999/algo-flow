@@ -1,5 +1,5 @@
 import { createPortal } from "react-dom";
-import { useDnDPosition } from "../../hooks/useDnd/useDnd";
+import { useDraggingCursorPosition } from "../../hooks/useDraggingCursorPosition";
 
 interface DragGhostProps {
   type: string | null;
@@ -7,7 +7,7 @@ interface DragGhostProps {
 
 // The DragGhost component is used to display a ghost node when dragging a node into the flow.
 export function DragGhost({ type }: DragGhostProps) {
-  const { position } = useDnDPosition();
+  const { position } = useDraggingCursorPosition();
 
   const flowRoot = document.querySelector(".react-flow");
   if (!flowRoot) return null;

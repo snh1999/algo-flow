@@ -6,10 +6,9 @@ import {
 } from "lucide-react";
 import { useSettingsStore } from "../../store/settingStore";
 import { ESelectionMenu } from "../../common/types";
-import { useDnD } from "../../hooks/useDnd/useDnd";
+import { useDnD } from "../../hooks/useDnd";
 import { useCallback, useState } from "react";
 import { type XYPosition } from "@xyflow/react";
-import type { OnDropAction } from "../../hooks/useDnd/DndContext";
 import { DragGhost } from "../overlays/DragGhost";
 import { useNodeStore } from "../../store/nodeStore";
 import { nanoid } from "nanoid";
@@ -23,8 +22,8 @@ export default function NodeMenu() {
   const { addNode } = useNodeStore();
 
   const createAddNewNode = useCallback(
-    (nodeType: string): OnDropAction => {
-      return ({ position }: { position: XYPosition }) => {
+    (nodeType: string) => {
+      return (position: XYPosition) => {
         addNode({
           id: nanoid(),
           type: nodeType,
