@@ -1,7 +1,7 @@
 import { Dices, Eraser, Grip, SquareMousePointer } from "lucide-react";
 import { motion } from "framer-motion";
-import { setMenuMode, useSettingsStore } from "../../store/settingStore";
-import { ESelectionMenu } from "../../common/types";
+import { setMenuMode, useSettingsStore } from "@/store/settingStore";
+import { ESelectionMenu } from "@/common/types";
 
 export default function SelectionMenu() {
   const { menuMode } = useSettingsStore();

@@ -4,14 +4,14 @@ import {
   TextCursorInput,
   Trash2,
 } from "lucide-react";
-import { useSettingsStore } from "../../store/settingStore";
-import { ESelectionMenu } from "../../common/types";
-import { useDnD } from "../../hooks/useDnd";
 import { useCallback, useState } from "react";
 import { type XYPosition } from "@xyflow/react";
-import { DragGhost } from "../overlays/DragGhost";
-import { addNode } from "../../store/nodeStore";
 import { nanoid } from "nanoid";
+import { useSettingsStore } from "@/store/settingStore";
+import { useDnD } from "@/hooks/useDnd";
+import { ESelectionMenu } from "@/common/types";
+import { DragGhost } from "../overlays/DragGhost";
+import { addNode } from "@/store/nodeStore";
 
 export default function NodeMenu() {
   const { menuMode } = useSettingsStore();

@@ -1,5 +1,5 @@
+import { useDraggingCursorPosition } from "@/hooks/useDraggingCursorPosition";
 import { createPortal } from "react-dom";
-import { useDraggingCursorPosition } from "../../hooks/useDraggingCursorPosition";
 
 interface DragGhostProps {
   type: string | null;

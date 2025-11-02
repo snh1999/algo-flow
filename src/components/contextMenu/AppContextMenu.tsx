@@ -1,13 +1,14 @@
 import { BackgroundVariant } from "@xyflow/react";
-import type { TPosition } from "../../common/types";
+
+import ModeSwitcher from "../ModeSwitcher";
+import type { ChangeEventHandler } from "react";
+import type { TPosition } from "@/common/types";
 import {
   setBGVariant,
   toggleControlVisiblity,
   toggleMinimapVisiblity,
   useSettingsStore,
-} from "../../store/settingStore";
-import ModeSwitcher from "../ModeSwitcher";
-import type { ChangeEventHandler } from "react";
+} from "@/store/settingStore";
 
 export type TProps = {
   position: TPosition;
