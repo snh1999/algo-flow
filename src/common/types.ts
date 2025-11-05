@@ -5,7 +5,7 @@ export type TPosition = {
   right?: number;
 };
 
-type EnumType<T> = T[keyof T];
+export type EnumType<T> = T[keyof T];
 
 export const ESelectionMenu = {
   RANDOM: "random",

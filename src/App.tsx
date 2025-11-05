@@ -18,6 +18,7 @@ import {
   onNodesChange,
   useNodeStore,
 } from "./store/nodeStore";
+import { NodeTypes } from "./nodes/nodes.constants";
 
 export default function App() {
   const { nodes, edges } = useNodeStore();
@@ -53,6 +54,7 @@ export default function App() {
       <div style={{ width: "100vw", height: "100vh" }}>
         <ReactFlow
           colorMode={colorMode}
+          nodeTypes={NodeTypes}
           ref={ref}
           nodes={nodes}
           edges={edges}
