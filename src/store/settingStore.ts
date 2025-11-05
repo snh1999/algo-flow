@@ -2,6 +2,7 @@ import { type ColorMode, type BackgroundVariant } from "@xyflow/react";
 import { create } from "zustand";
 import { ETheme } from "../common/app.constants";
 import { ESelectionMenu, type TSelectionMenu } from "../common/types";
+import { persist } from "zustand/middleware";
 
 interface IState {
   menuMode: TSelectionMenu;
@@ -11,13 +12,20 @@ interface IState {
   minimapVisiblity: boolean;
 }
 
-export const useSettingsStore = create<IState>()(() => ({
-  menuMode: ESelectionMenu.RANDOM,
-  colorMode: ETheme.SYSTEM,
-  bgVariant: undefined,
-  controlVisiblity: true,
-  minimapVisiblity: false,
-}));
+export const useSettingsStore = create(
+  persist<IState>(
+    () => ({
+      menuMode: ESelectionMenu.DRAG,
+      colorMode: ETheme.SYSTEM,
+      bgVariant: undefined,
+      controlVisiblity: true,
+      minimapVisiblity: false,
+    }),
+    {
+      name: "algo-flow-settings",
+    },
+  ),
+);
 
 export const setMenuMode = (menuMode: TSelectionMenu) => {
   useSettingsStore.setState({ menuMode });

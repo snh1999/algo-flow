@@ -1,22 +1,23 @@
-import { type ColorMode } from "@xyflow/react";
-import type { ChangeEventHandler } from "react";
 import { ETheme } from "../common/app.constants";
-import { setColorMode } from "../store/settingStore";
+import { setColorMode, useSettingsStore } from "../store/settingStore";
+import { Monitor, Moon, Sun } from "lucide-react";
+import TabComponent from "./tab/Tab";
 
 export default function ModeSwitcher() {
-  const onChange: ChangeEventHandler<HTMLSelectElement> = (evt) => {
-    setColorMode(evt.target.value as ColorMode);
-  };
+  const colorMode = useSettingsStore((state) => state.colorMode);
+
+  const iconMenuMap = [
+    { key: ETheme.DARK_MODE, icon: Moon },
+    { key: ETheme.LIGHT_MODE, icon: Sun },
+    { key: ETheme.SYSTEM, icon: Monitor },
+  ];
 
   return (
-    <select
-      className="xy-theme__select rounded-md p-1 text-center"
-      onChange={onChange}
-      data-testid="colormode-select"
-    >
-      <option value={ETheme.DARK_MODE}>Dark</option>
-      <option value={ETheme.LIGHT_MODE}>Light</option>
-      <option value={ETheme.SYSTEM}>System</option>
-    </select>
+    <TabComponent
+      iconMenuMap={iconMenuMap}
+      value={colorMode}
+      setValue={setColorMode}
+      compact
+    />
   );
 }

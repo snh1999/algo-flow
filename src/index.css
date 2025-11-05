@@ -48,12 +48,7 @@ body {
     scale: 110%;
 }
 
-.app_menu_item:first-child {
-    border-top: 1px solid theme("colors.neutral.400");
-}
-
 .app_menu_item {
-    border-bottom: 1px solid theme("colors.neutral.400");
     display: flex;
     justify-content: space-between;
     align-items: center;
