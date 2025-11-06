@@ -1,7 +1,7 @@
 import { ETheme } from "../common/app.constants";
 import { setColorMode, useSettingsStore } from "../store/settingStore";
 import { Monitor, Moon, Sun } from "lucide-react";
-import TabComponent from "./tab/Tab";
+import TabComponent from "./reusable/tab/Tab";
 
 export default function ModeSwitcher() {
   const colorMode = useSettingsStore((state) => state.colorMode);

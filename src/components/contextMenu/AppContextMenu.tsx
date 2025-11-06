@@ -10,7 +10,8 @@ import {
 } from "@/store/settingStore";
 import { useShallow } from "zustand/shallow";
 import { Ban, Grid2x2, Plus, SquareDot } from "lucide-react";
-import TabComponent from "../tab/Tab";
+import TabComponent from "../reusable/tab/Tab";
+import Checkbox from "../reusable/checkbox/Checkbox";
 
 export type TProps = {
   position: TPosition;
@@ -33,7 +34,7 @@ export default function AppContextMenu({ position }: TProps) {
 
   return (
     <div
-      className="context-menu z-50 rounded-md flex flex-col text-sm opacity-75 "
+      className="context-menu z-50 rounded-md flex flex-col text-sm opacity-85 "
       style={{
         position: "fixed",
         top: position.top,
@@ -43,20 +44,16 @@ export default function AppContextMenu({ position }: TProps) {
     >
       <div className="app_menu_item">
         Show Controls
-        <input
-          className="size-3"
-          type="checkbox"
-          checked={controlVisiblity}
-          onChange={toggleControlVisiblity}
+        <Checkbox
+          value={controlVisiblity}
+          toggleValue={toggleControlVisiblity}
         />
       </div>
       <div className="app_menu_item">
         Show Minimap
-        <input
-          className="size-3"
-          type="checkbox"
-          checked={minimapVisiblity}
-          onChange={toggleMinimapVisiblity}
+        <Checkbox
+          value={minimapVisiblity}
+          toggleValue={toggleMinimapVisiblity}
         />
       </div>
       <div className="app_menu_item">

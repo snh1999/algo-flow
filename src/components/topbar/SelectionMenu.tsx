@@ -1,7 +1,7 @@
 import { Dices, Eraser, Grip, SquareMousePointer } from "lucide-react";
 import { setMenuMode, useSettingsStore } from "@/store/settingStore";
 import { ESelectionMenu } from "@/common/types";
-import TabComponent from "../tab/Tab";
+import TabComponent from "../reusable/tab/Tab";
 
 export default function SelectionMenu() {
   const { menuMode } = useSettingsStore();

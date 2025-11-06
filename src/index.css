@@ -84,6 +84,13 @@ body {
     border-color: palevioletred;
 }
 
+.checkbox {
+    background-color: palevioletred;
+    border-radius: 4px;
+    padding: 2px;
+    color: white;
+}
+
 .input_field:disabled {
     background-color: color-mix(
         in oklab,
