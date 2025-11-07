@@ -12,7 +12,7 @@ export function DragGhost({ type }: DragGhostProps) {
   const flowRoot = document.querySelector(".react-flow");
   if (!flowRoot) return null;
 
-  const reactFlowNodeClass = `react-flow__node react-flow__node-${type || "default"}`;
+  const reactFlowNodeClass = `react-flow__node react-flow__node-default`;
 
   if (!position) return null;
 

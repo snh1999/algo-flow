@@ -1,6 +1,7 @@
 import {
   BetweenHorizontalStart,
   Cpu,
+  EthernetPort,
   TextCursorInput,
   Trash2,
 } from "lucide-react";
@@ -12,15 +13,16 @@ import { useDnD } from "@/hooks/useDnd";
 import { ESelectionMenu } from "@/common/types";
 import { DragGhost } from "../overlays/DragGhost";
 import { addNode } from "@/store/nodeStore";
+import type { TNodeTypes } from "@/nodes/nodes.constants";
 
 export default function NodeMenu() {
   const { menuMode } = useSettingsStore();
 
   const { onDragStart, isDragging } = useDnD();
-  const [type, setType] = useState<string | null>(null);
+  const [type, setType] = useState<TNodeTypes | null>(null);
 
   const createAddNewNode = useCallback(
-    (nodeType: string) => {
+    (nodeType: TNodeTypes) => {
       return (position: XYPosition) => {
         addNode({
           id: nanoid(),
@@ -58,6 +60,15 @@ export default function NodeMenu() {
           }}
         >
           <TextCursorInput />
+        </div>
+        <div
+          title="Input Composite Node"
+          onPointerDown={(event) => {
+            setType("composite");
+            onDragStart(event, createAddNewNode("composite"));
+          }}
+        >
+          <EthernetPort />
         </div>
         <div
           title="Process Node"
