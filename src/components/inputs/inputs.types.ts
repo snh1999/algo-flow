@@ -14,6 +14,8 @@ export type TInputFieldsProps = TTextFieldsProps &
   TBooleanFieldsProps &
   TNumberFieldsProps;
 
+type TAllowedTypes = string | number | boolean;
+
 type TCommonFieldsProps = {
   inputType: TInputDataType;
   error: string;
@@ -22,6 +24,8 @@ type TCommonFieldsProps = {
   placeholder?: string;
   required?: boolean;
   disabled?: boolean;
+  addToData: <T extends TAllowedTypes>(val: T) => void;
+  initialValue?: string | number | boolean;
 };
 
 export type TNumberFieldsProps = TCommonFieldsProps & {

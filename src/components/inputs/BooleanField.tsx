@@ -4,17 +4,22 @@ import type { TBooleanFieldsProps } from "./inputs.types";
 import { BookCheck, BookX } from "lucide-react";
 
 export default function BooleanField({
+  addToData,
+  initialValue = false,
   trueLabel = "True",
   falseLabel = "False",
   disabled = false,
 }: TBooleanFieldsProps) {
-  const [value, setValue] = useState(false);
+  const [value, setValue] = useState(Boolean(initialValue));
   const className = "w-2";
 
   return (
     <motion.button
       type="button"
-      onClick={() => setValue((state) => !state)}
+      onClick={() => {
+        setValue((state) => !state);
+        addToData(value);
+      }}
       disabled={disabled}
       whileTap={{ scale: 0.98 }}
       animate={{

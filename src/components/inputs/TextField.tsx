@@ -10,35 +10,40 @@ export default function TextField({
   maxLength,
   pattern,
   patternMessage,
+  addToData,
+  initialValue = "",
   required = true,
   disabled = false,
 }: TTextFieldsProps) {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState<string>(initialValue.toString());
+  const getSchema = () => {
+    let schema = required
+      ? z.string().min(1, "This field is required")
+      : z.string();
+
+    if (minLength !== undefined) {
+      schema = schema.min(
+        minLength,
+        `Minimum ${minLength} characters required`,
+      );
+    }
+    if (maxLength !== undefined) {
+      schema = schema.max(maxLength, `Maximum ${maxLength} characters allowed`);
+    }
+    if (pattern) {
+      schema = schema.regex(pattern, patternMessage || "Invalid format");
+    }
+
+    return schema;
+  };
+
+  const schema = getSchema();
 
   const validate = (val: string) => {
     try {
-      let schema = required
-        ? z.string().min(1, "This field is required")
-        : z.string();
-
-      if (minLength !== undefined) {
-        schema = schema.min(
-          minLength,
-          `Minimum ${minLength} characters required`,
-        );
-      }
-      if (maxLength !== undefined) {
-        schema = schema.max(
-          maxLength,
-          `Maximum ${maxLength} characters allowed`,
-        );
-      }
-      if (pattern) {
-        schema = schema.regex(pattern, patternMessage || "Invalid format");
-      }
-
       schema.parse(val);
       setError("");
+      addToData(val);
       return true;
     } catch (err) {
       if (err instanceof z.ZodError) {
@@ -60,7 +65,6 @@ export default function TextField({
         type="text"
         value={value}
         onChange={handleChange}
-        onBlur={() => validate(value)}
         placeholder={placeholder}
         disabled={disabled}
         className={`input_field focus:outline-none transition-colors ${

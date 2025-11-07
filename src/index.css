@@ -78,6 +78,7 @@ body {
     padding: 4px;
     border-width: 1px;
     border-radius: 6px;
+    text-align: center;
 }
 
 .input_field:focus {
