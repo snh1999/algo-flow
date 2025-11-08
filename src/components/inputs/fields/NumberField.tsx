@@ -1,44 +1,26 @@
 import { z } from "zod";
-import type { TNumberFieldsProps } from "./inputs.types";
+import type { TNumberFieldsProps } from "./inputFields.types";
 import { useState } from "react";
-import { EInputDataType } from "@/nodes/nodes.type";
+import { getInputFieldStyling, getNumberSchema } from "./inputFields.helpers";
 
-export default function NumberField({
-  error,
-  setError,
-  inputType,
-  placeholder,
-  min,
-  max,
-  positive,
-  addToData,
-  initialValue,
-  required = true,
-  disabled = false,
-}: TNumberFieldsProps) {
+export default function NumberField(props: TNumberFieldsProps) {
+  const {
+    error,
+    setError,
+    placeholder,
+    min,
+    max,
+    addToData,
+    initialValue,
+    required = true,
+    disabled = false,
+  } = props;
+
   const [value, setValue] = useState<number | string>(
     initialValue ? Number(initialValue) : "",
   );
 
-  const getSchema = () => {
-    let schema = z.number("Value must be a number");
-
-    if (inputType === EInputDataType.INT) {
-      schema = schema.int("Value must be an integer");
-    }
-    if (positive) {
-      schema = schema.positive("Value must be positive");
-    }
-    if (min !== undefined) {
-      schema = schema.min(min, `Minimum allowed value is ${min}`);
-    }
-    if (max !== undefined) {
-      schema = schema.max(max, `Maximum allowed value is ${max}`);
-    }
-    return schema;
-  };
-
-  const schema = getSchema();
+  const schema = getNumberSchema(props);
 
   const validate = (val: number | string) => {
     if (val === "") return;
@@ -74,9 +56,7 @@ export default function NumberField({
         min={min}
         max={max}
         required={required}
-        className={`input_field nodrag focus:outline-none transition-colors ${
-          error ? "border-red-500" : "border-gray-400/50"
-        }`}
+        className={getInputFieldStyling(error)}
       />
     </div>
   );

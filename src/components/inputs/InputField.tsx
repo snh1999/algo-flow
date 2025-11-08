@@ -1,4 +1,7 @@
-import { InputComponentMap, type TInputFieldsProps } from "./inputs.types";
+import {
+  InputComponentMap,
+  type TInputFieldsProps,
+} from "./fields/inputFields.types";
 import ErrorMessage from "./ErrorMessage";
 import { useEffect, useState } from "react";
 import { useNodeId, useReactFlow } from "@xyflow/react";

@@ -1,5 +1,3 @@
-import { CircleX } from "lucide-react";
-
 interface Props {
   errorMessage: string;
 }

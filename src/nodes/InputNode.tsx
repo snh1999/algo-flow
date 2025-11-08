@@ -2,6 +2,7 @@ import { Handle, Position } from "@xyflow/react";
 import { EInputDataType, type TInputDataType } from "./nodes.type";
 import { useState } from "react";
 import InputField from "@/components/inputs/InputField";
+import { ArrayInput } from "@/components/inputs/fields/ArrayField";
 
 export function InputNode() {
   const [dataType, setDataType] = useState<TInputDataType>(EInputDataType.INT);
@@ -28,6 +29,7 @@ export function InputNode() {
       <div className="input_label justify-center">
         <InputField inputType={dataType} />
       </div>
+      <ArrayInput />
 
       <Handle className="w-2 h-2" type="source" position={Position.Right} />
     </div>
