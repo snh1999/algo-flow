@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import type { TBooleanFieldsProps } from "./inputs.types";
+import type { TBooleanFieldsProps } from "./inputFields.types";
 import { BookCheck, BookX } from "lucide-react";
 
 export default function BooleanField({

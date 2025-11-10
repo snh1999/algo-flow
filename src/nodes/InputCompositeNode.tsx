@@ -1,24 +1,17 @@
-import {
-  Handle,
-  Position,
-  useNodeConnections,
-  useNodeId,
-  useNodesData,
-} from "@xyflow/react";
-import { EInputDataType } from "./nodes.type";
+import { Handle, Position } from "@xyflow/react";
+import { EInputDataType, EInputType } from "./nodes.type";
 import InputField from "@/components/inputs/InputField";
+import {
+  useGetNodeConnectionsData,
+  useGetNodeData,
+} from "@/hooks/useNodesData";
+import type { TAllowedTypes } from "@/components/inputs/fields/inputFields.types";
 
 export default function InputCompositeNode() {
-  const nodeId = useNodeId()!;
-  const { data } = useNodesData(nodeId)!;
+  const data = useGetNodeData();
   const inputCount = Number(data.value ?? 1);
 
-  const connections = useNodeConnections({ handleType: "target" });
-  const nodes = useNodesData(
-    connections.map((connection) => connection.source),
-  );
-  const values = nodes.map((node) => node.data.value);
-  console.log(values);
+  const values = useGetNodeConnectionsData();
 
   // const updateNodeInternals = useUpdateNodeInternals();
 
@@ -29,7 +22,8 @@ export default function InputCompositeNode() {
         <div className="scale-80 text-center">
           <p className="opacity-60">Input count</p>
           <InputField
-            inputType={EInputDataType.INT}
+            type={EInputType.BASIC}
+            dataType={EInputDataType.INT}
             initialValue={inputCount}
             min={1}
             max={10}
@@ -37,6 +31,11 @@ export default function InputCompositeNode() {
           />
         </div>
       </label>
+      {values.map((value, index) => (
+        <div key={`${index}`}>
+          Input #{index + 1}: {value as TAllowedTypes | TAllowedTypes[]}
+        </div>
+      ))}
 
       {Array.from({ length: inputCount }).map((_, index) => (
         <Handle

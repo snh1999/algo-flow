@@ -1,19 +1,18 @@
 import type { EnumType } from "@/common/types";
 
-export const EInputType: Record<string, string> = {
-  BASIC: "BASIC",
-  ARRAY: "ARRAY",
-  SET: "SET",
-  MAP: "MAP",
-};
+export const EInputType = {
+  BASIC: "basic",
+  ARRAY: "array",
+  MAP: "map",
+} as const;
 
 export type TInputType = EnumType<typeof EInputType>;
 
-export const EInputDataType: Record<string, string> = {
+export const EInputDataType = {
   BOOLEAN: "boolean",
   STRING: "string",
   INT: "integer",
   FLOAT: "float",
-};
+} as const;
 
 export type TInputDataType = EnumType<typeof EInputDataType>;

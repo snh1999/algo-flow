@@ -8,14 +8,14 @@ export const getInputFieldStyling = (error?: unknown) =>
   }`;
 
 export function getNumberSchema({
-  inputType,
+  dataType,
   positive,
   min,
   max,
 }: TNumberFieldsProps) {
   let schema = z.number("Value must be a number");
 
-  if (inputType === EInputDataType.INT) {
+  if (dataType === EInputDataType.INT) {
     schema = schema.int("Value must be an integer");
   }
   if (positive) {

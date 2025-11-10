@@ -1,9 +1,17 @@
+import ArrayFields from "./ArrayField";
 import BooleanField from "./BooleanField";
 import NumberField from "./NumberField";
 import TextField from "./TextField";
-import { EInputDataType, type TInputDataType } from "@/nodes/nodes.type";
+import {
+  EInputDataType,
+  EInputType,
+  type TInputDataType,
+} from "@/nodes/nodes.type";
 
 export const InputComponentMap = {
+  [EInputType.ARRAY]: ArrayFields,
+  [EInputType.BASIC]: null,
+  [EInputType.MAP]: null,
   [EInputDataType.BOOLEAN]: BooleanField,
   [EInputDataType.FLOAT]: NumberField,
   [EInputDataType.INT]: NumberField,
@@ -14,10 +22,16 @@ export type TInputFieldsProps = TTextFieldsProps &
   TBooleanFieldsProps &
   TNumberFieldsProps;
 
-type TAllowedTypes = string | number | boolean;
+export type TAllowedTypes =
+  | string
+  | number
+  | boolean
+  | string[]
+  | number[]
+  | boolean[];
 
 type TCommonFieldsProps = {
-  inputType: TInputDataType;
+  dataType: TInputDataType;
   error: string;
   setError: (value: string) => void;
   label?: string;
