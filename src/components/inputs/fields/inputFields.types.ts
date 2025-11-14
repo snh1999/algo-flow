@@ -20,15 +20,12 @@ export const InputComponentMap = {
 
 export type TInputFieldsProps = TTextFieldsProps &
   TBooleanFieldsProps &
-  TNumberFieldsProps;
+  TNumberFieldsProps &
+  TArrayFieldsProps;
 
-export type TAllowedTypes =
-  | string
-  | number
-  | boolean
-  | string[]
-  | number[]
-  | boolean[];
+export type TAllowedBasicTypes = string | number | boolean;
+export type TAllowedArrayTypes = string[] | number[] | boolean[];
+export type TAllowedTypes = TAllowedBasicTypes | TAllowedArrayTypes;
 
 type TCommonFieldsProps = {
   dataType: TInputDataType;
@@ -39,7 +36,7 @@ type TCommonFieldsProps = {
   required?: boolean;
   disabled?: boolean;
   addToData: <T extends TAllowedTypes>(val: T) => void;
-  initialValue?: string | number | boolean;
+  initialValue?: TAllowedTypes;
 };
 
 export type TNumberFieldsProps = TCommonFieldsProps & {
@@ -59,3 +56,5 @@ export type TBooleanFieldsProps = TCommonFieldsProps & {
   trueLabel?: string;
   falseLabel?: string;
 };
+
+export type TArrayFieldsProps = TCommonFieldsProps;

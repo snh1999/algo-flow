@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { EInputDataType } from "@/nodes/nodes.type";
-import type { TNumberFieldsProps, TTextFieldsProps } from "./inputFields.types";
+import type { TInputFieldsProps } from "./inputFields.types";
 
 export const getInputFieldStyling = (error?: unknown) =>
   `input_field focus:outline-none transition-colors ${
@@ -12,7 +12,7 @@ export function getNumberSchema({
   positive,
   min,
   max,
-}: TNumberFieldsProps) {
+}: Partial<TInputFieldsProps>) {
   let schema = z.number("Value must be a number");
 
   if (dataType === EInputDataType.INT) {
@@ -36,7 +36,7 @@ export function getTextSchema({
   maxLength,
   pattern,
   patternMessage,
-}: TTextFieldsProps) {
+}: Partial<TInputFieldsProps>) {
   let schema = required
     ? z.string().min(1, "This field is required")
     : z.string();
@@ -52,4 +52,14 @@ export function getTextSchema({
   }
 
   return schema;
+}
+
+export function getArraySchema(data: Partial<TInputFieldsProps>) {
+  return z.array(
+    data.dataType === EInputDataType.BOOLEAN
+      ? z.boolean()
+      : data.dataType === EInputDataType.STRING
+        ? getTextSchema(data)
+        : getNumberSchema(data),
+  );
 }

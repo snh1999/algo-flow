@@ -8,7 +8,8 @@ import {
 import { useState } from "react";
 import InputField from "@/components/inputs/InputField";
 import { NODE_SELECT_STYLE } from "./nodes.constants";
-import { useGetNodeData } from "@/hooks/useNodesData";
+import { useGetNodeData, useSetNodeData } from "@/hooks/useNodesData";
+import type { TAllowedTypes } from "@/components/inputs/fields/inputFields.types";
 
 export function InputNode() {
   const data = useGetNodeData();
@@ -19,6 +20,8 @@ export function InputNode() {
     (data.type ?? EInputType.BASIC) as TInputType,
   );
 
+  const updateNodeData = useSetNodeData();
+
   return (
     <div className="rounded-md">
       <p className="text-center py-1 opacity-60">Input</p>
@@ -27,7 +30,10 @@ export function InputNode() {
         <select
           className={NODE_SELECT_STYLE}
           value={type as TInputType}
-          onChange={(event) => setType(event.target.value as TInputType)}
+          onChange={(event) => {
+            setType(event.target.value as TInputType);
+            updateNodeData({ type });
+          }}
         >
           {Object.values(EInputType).map((value) => (
             <option key={value} value={value}>
@@ -38,9 +44,10 @@ export function InputNode() {
         <select
           className={NODE_SELECT_STYLE}
           value={dataType as TInputType}
-          onChange={(event) =>
-            setDataType(event.target.value as TInputDataType)
-          }
+          onChange={(event) => {
+            setDataType(event.target.value as TInputDataType);
+            updateNodeData({ dataType });
+          }}
         >
           {Object.values(EInputDataType).map((value) => (
             <option key={value} value={value}>
@@ -51,7 +58,11 @@ export function InputNode() {
       </label>
 
       <div className="input_label justify-center">
-        <InputField type={type} dataType={dataType} />
+        <InputField
+          type={type}
+          dataType={dataType}
+          initialValue={data.value as TAllowedTypes}
+        />
       </div>
 
       <Handle className="w-2 h-2" type="source" position={Position.Right} />

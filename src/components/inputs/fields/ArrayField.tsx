@@ -1,48 +1,33 @@
 import { useState } from "react";
 import { z } from "zod";
-import ErrorMessage from "../ErrorMessage";
-import { getInputFieldStyling } from "./inputFields.helpers";
-import type { TTextFieldsProps } from "./inputFields.types";
+import { getArraySchema, getInputFieldStyling } from "./inputFields.helpers";
+import type { TArrayFieldsProps } from "./inputFields.types";
 
-// Array Input Component
-interface ArrayInputProps {
-  label?: string;
-  placeholder?: string;
-  minItems?: number;
-  maxItems?: number;
-  minLength?: number;
-  maxLength?: number;
-  pattern?: RegExp;
-  patternMessage?: string;
-  required?: boolean;
-  disabled?: boolean;
-}
-
-export default function ArrayFields(props: TTextFieldsProps) {
+export default function ArrayFields(props: TArrayFieldsProps) {
   const {
     error,
     setError,
     placeholder,
     addToData,
-    initialValue = "",
+    initialValue = [],
     disabled = false,
   } = props;
-  const [value, setValue] = useState<string>(initialValue.toString());
+  const [value, setValue] = useState<string>(JSON.stringify(initialValue));
 
-  // const schema = getTextSchema(props);
+  const schema = getArraySchema(props);
 
   const validate = (val: string) => {
     try {
-      JSON.parse(val);
-      // schema.parse(val);
+      const data = JSON.parse(val);
+      schema.parse(data);
       setError("");
-      addToData(val);
+      addToData(data);
       return true;
     } catch (err) {
       if (err instanceof z.ZodError) {
         setError(err.issues[0].message);
       } else if (err instanceof Error) {
-        console.log(err.message);
+        setError(err.message);
       }
       return false;
     }

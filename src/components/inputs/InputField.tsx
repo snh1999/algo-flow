@@ -1,11 +1,12 @@
 import {
   InputComponentMap,
+  type TAllowedTypes,
   type TInputFieldsProps,
 } from "./fields/inputFields.types";
 import ErrorMessage from "./ErrorMessage";
-import { useEffect, useState } from "react";
-import { useNodeId, useReactFlow } from "@xyflow/react";
+import { useState } from "react";
 import type { TInputType } from "@/nodes/nodes.type";
+import { useSetNodeData } from "@/hooks/useNodesData";
 
 type TProps = {
   type: TInputType;
@@ -16,18 +17,7 @@ export default function InputField(props: TProps) {
     InputComponentMap[props.type] ?? InputComponentMap[props.dataType];
 
   const [error, setError] = useState("");
-
-  const nodeId = useNodeId()!;
-  const { updateNodeData } = useReactFlow();
-
-  useEffect(() => {
-    setError("");
-    updateNodeData(nodeId, {
-      value: undefined,
-      type: props.type,
-      dataType: props.dataType,
-    });
-  }, [nodeId, props.dataType, props.type, updateNodeData]);
+  const updateNodeData = useSetNodeData();
 
   return (
     <div className="flex flex-col">
@@ -35,13 +25,7 @@ export default function InputField(props: TProps) {
         error={error}
         setError={setError}
         {...props}
-        addToData={(value) =>
-          updateNodeData(nodeId, {
-            value,
-            type: props.type,
-            dataType: props.dataType,
-          })
-        }
+        addToData={(value: TAllowedTypes) => updateNodeData({ value })}
       />
       <ErrorMessage errorMessage={error} />
     </div>

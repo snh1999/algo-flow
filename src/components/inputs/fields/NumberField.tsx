@@ -11,11 +11,10 @@ export default function NumberField(props: TNumberFieldsProps) {
     min,
     max,
     addToData,
-    initialValue,
+    initialValue = "",
     required = true,
     disabled = false,
   } = props;
-
   const [value, setValue] = useState<number | string>(
     initialValue ? Number(initialValue) : "",
   );

@@ -5,7 +5,10 @@ import {
   useGetNodeConnectionsData,
   useGetNodeData,
 } from "@/hooks/useNodesData";
-import type { TAllowedTypes } from "@/components/inputs/fields/inputFields.types";
+import type {
+  TAllowedArrayTypes,
+  TAllowedTypes,
+} from "@/components/inputs/fields/inputFields.types";
 
 export default function InputCompositeNode() {
   const data = useGetNodeData();
@@ -33,7 +36,7 @@ export default function InputCompositeNode() {
       </label>
       {values.map((value, index) => (
         <div key={`${index}`}>
-          Input #{index + 1}: {value as TAllowedTypes | TAllowedTypes[]}
+          Input #{index + 1}: {JSON.stringify(value)}
         </div>
       ))}
 
